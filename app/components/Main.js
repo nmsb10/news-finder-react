@@ -24,13 +24,23 @@ var Main = React.createClass({
 			numberOfRecords:5,
 			startYear: 2017,
 			endYear:2017,
-			searchResults: ''
+			searchResults: [],
+			savedArticles: []
 		};
 	},
 	//if this Main component changes (ie if a search is entered)
 	componentDidUpdate: function(){
 		helpers.runQuery(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear).then(function(data){
 			console.log('article results:', data);
+			//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
+			// if(data !== this.state.searchResults){
+			// 	this.setState({
+			// 		searchResults: data,
+			// 	});
+			// }
+			//once the articles are received, post the found articles to Articles
+			//helpers.postArticles(data).then()
+
 		}.bind(this));
 	},
 	//function so Search child may give the parent the search term
@@ -41,7 +51,7 @@ var Main = React.createClass({
 			startYear: start,
 			endYear: end
 		});
-		console.log('search criteria sent to Main.js:', searchterm, records, start, end);
+		//console.log('search criteria sent to Main.js:', searchterm, records, start, end);
 	},
 	render: function(){
 		return (
@@ -57,23 +67,20 @@ var Main = React.createClass({
 					</div>
 				</div>
 				{/* results component */}
-				
 				<div className = 'row'>
 					<div className = 'col-sm-12'>
 						<Results articlesFound = {this.state.searchResults}/>
 					</div>
 				</div>
-				{/* saved articles
+				{/* saved articles component */}
 				<div className = 'row'>
 					<div className = 'col-sm-12'>
-						<Saved />
+						<Saved savedArticles = {this.state.savedArticles} />
 					</div>
 				</div>
-				*/}
 			</div>
 		);
 	}
-
 });
 
 // Export the component Main for use in app.js

@@ -21,7 +21,7 @@ var helper = {
 			var d = new Date();
 			queryURL += "&end_date=" + endYear + "0101";
 		}
-		console.log('queryURL: ', queryURL);
+		//console.log('queryURL: ', queryURL);
 		return axios.get(queryURL).then(function(response){
 			var foundArticles = [];
 			if(response.data.response.docs.length < numberOfRecords){
@@ -37,6 +37,10 @@ var helper = {
 			}
 			return foundArticles;
 		});
+	},
+	//function to post the freshly found articles to the mongo database
+	postArticles: function(foundArticles){
+		return axios.post('/api', {articles: foundArticles});
 	}
 };
 

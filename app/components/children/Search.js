@@ -44,7 +44,6 @@ var Form = React.createClass({
 		//and refreshing the page if the user clicks the "enter" key
 		//instead of clicking the submit button
 		event.preventDefault();
-		console.log(this.state.endYear);
 		if(this.state.searchTerm === ''){
 			this.setState({searchPlaceholder: 'please first enter a topic to search'});
 		}else{

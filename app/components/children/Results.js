@@ -3,6 +3,15 @@ var React = require("react");
 
 // Creating the Results component
 var Results = React.createClass({
+	getInitialState: function(){
+		return{
+			articlesReceived: this.props.articlesFound
+		};
+	},
+	//if the component changes (ie if new articles are found)
+	componentDidUpdate: function(){
+		console.log('Results.js: ', this.state.articlesReceived);
+	},
 	render: function(){
 		return (
 			<div className="panel panel-primary">
