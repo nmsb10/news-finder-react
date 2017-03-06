@@ -24,6 +24,8 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 // MongoDB Configuration configuration
 mongoose.connect("mongodb://localhost/nytreact");
+
+
 var db = mongoose.connection;
 
 db.on("error", function(err) {
