@@ -24,24 +24,25 @@ var Main = React.createClass({
 			numberOfRecords:5,
 			startYear: 2017,
 			endYear:2017,
+			searching:false,
 			searchResults: [],
 			savedArticles: []
 		};
 	},
 	//if this Main component changes (ie if a search is entered)
 	componentDidUpdate: function(){
-		helpers.runQuery(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear).then(function(data){
-			console.log('article results:', data);
+		if(!this.state.searching){
 			//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
-			// if(data !== this.state.searchResults){
-			// 	this.setState({
-			// 		searchResults: data,
-			// 	});
-			// }
-			//once the articles are received, post the found articles to Articles
-			//helpers.postArticles(data).then()
-
-		}.bind(this));
+			this.setState({searching:true})
+			helpers.runQuery(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear).then(function(data){
+				this.setState({
+					searchResults: data
+				});
+				console.log('search results:', this.state.searchResults);
+				//once the articles are received, post the found articles to Articles
+				//helpers.postArticles(data).then()
+			}.bind(this));
+		}
 	},
 	//function so Search child may give the parent the search term
 	setSearchTerms: function(searchterm, records, start, end){
@@ -49,7 +50,8 @@ var Main = React.createClass({
 			searchTerm: searchterm,
 			numberOfRecords: records,
 			startYear: start,
-			endYear: end
+			endYear: end,
+			searching: false
 		});
 		//console.log('search criteria sent to Main.js:', searchterm, records, start, end);
 	},

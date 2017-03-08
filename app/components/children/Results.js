@@ -21,6 +21,11 @@ var Results = React.createClass({
 				</div>
 				{/*This main panel will hold each of the resulting articles*/}
 				<div className="panel-body" id="wellSection">
+					{this.props.articlesFound.map(function(search, i) {
+						return (
+							<p key={i}>{search._id} - {search.lead_paragraph}</p>
+						);
+					})}
 				</div>
 			</div>
 		);
