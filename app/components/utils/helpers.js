@@ -10,7 +10,8 @@ var helper = {
 		var key = '2341b8bd89254c4f8b3a1ff1e097d8ea';
 		// Based on the queryTerm we will create a queryURL 
 		var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + key + "&q=";
-		var queryURL = queryURLBase + searchTerm.trim().split(' ').join('_');
+		//var queryURL = queryURLBase + searchTerm.trim().split(' ').join('_');
+		var queryURL = queryURLBase + searchTerm.trim();
 		// function twoDigits(n){
 		// 	return n > 9 ? "" + n: "0" + n;
 		// }
@@ -21,7 +22,7 @@ var helper = {
 			var d = new Date();
 			queryURL += "&end_date=" + endYear + "0101";
 		}
-		//console.log('queryURL: ', queryURL);
+		console.log('queryURL: ', queryURL);
 		return axios.get(queryURL).then(function(response){
 			var foundArticles = [];
 			if(response.data.response.docs.length < numberOfRecords){

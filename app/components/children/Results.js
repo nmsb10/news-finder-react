@@ -23,7 +23,11 @@ var Results = React.createClass({
 				<div className="panel-body" id="wellSection">
 					{this.props.articlesFound.map(function(search, i) {
 						return (
-							<p key={i}>{search._id} - {search.lead_paragraph}</p>
+							<p key={i}>{search._id}<br/>
+							search headline: {search.headline.main}<br/>
+							abstract: {search.lead_paragraph}<br/> {/*or snippet?*/}
+							publication date: {search.pub_date}<br/>
+							web url: {search.web_url}</p>
 						);
 					})}
 				</div>
