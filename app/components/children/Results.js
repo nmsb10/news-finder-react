@@ -11,7 +11,7 @@ var Results = React.createClass({
 	},
 	//if the component changes (ie if new articles are found)
 	componentDidUpdate: function(){
-		console.log('Results.js: ', this.state.articlesReceived);
+		//console.log('Results.js: ', this.state.articlesReceived);
 	},
 	handleChangeSaveCode: function(event){
 		this.setState({saveCode: event.target.value});
@@ -50,9 +50,9 @@ var Results = React.createClass({
 								<div className = 'panel-body'>
 									<h5>{search.byline.original}</h5>
 									<h5>{search.lead_paragraph}</h5>{/*or snippet?*/}
-									<h5>{search.pub_date}</h5>
-									<p>{search._id}</p>
+									<h5>{search.pub_date} | article id: {search._id}</h5>
 									<a href={search.web_url}>{search.web_url}</a>
+									<br/>
 									<form role = 'form' className = 'clearfix'>
 										<div className="form-group pull-left">
 											<input
