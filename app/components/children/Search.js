@@ -20,7 +20,6 @@ var Form = React.createClass({
 	},
 	handleInputChange: function(event){
 		var newState = {};
-		console.log(event);
 		newState[event.target.id] = event.target.value;
 		this.setState(newState);
 	},

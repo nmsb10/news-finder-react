@@ -22,7 +22,6 @@ var Main = React.createClass({
 		return {
 			// startYear: 2017,
 			// endYear:2017,
-			searching:false,
 			searchResults: [],
 			savedArticles: []
 		};
@@ -54,39 +53,11 @@ var Main = React.createClass({
 	},
 	//function so Search child may give the parent the search term
 	setSearchTerms: function(searchterm, records, start, end){
-		// this.setState({
-		// 	searchTerm: searchterm,
-		// 	numberOfRecords: records,
-		// 	startYear: start,
-		// 	endYear: end,
-		// 	searching: false
-		// });
 		helpers.runQuery(searchterm, records, start, end).then(function(data){
-			console.log('data received in main.js (should be same as found articles array):', data)
 			this.setState({
 				searchResults: data
 			});
-			console.log('search results:', this.state.searchResults);
 		}.bind(this));
-		// this.setState({
-		// 	searching: false
-		// });
-		// if(!this.state.searching){
-		// 	//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
-		// 	this.setState({
-		// 		searching:true
-		// 	});
-		// 	helpers.runQuery(searchterm, records, start, end).then(function(data){
-		// 		console.log('data received in main.js (should be same as found articles array):', data)
-		// 		this.setState({
-		// 			searchResults: data
-		// 		});
-		// 		console.log('search results:', this.state.searchResults);
-		// 		//once the articles are received, post the found articles to Articles
-		// 		//helpers.postArticles(data).then()
-		// 	}.bind(this));
-		// }
-		//console.log('search criteria sent to Main.js:', searchterm, records, start, end);
 	},
 	saveArticle: function(){
 		console.log('main.js: save this article');

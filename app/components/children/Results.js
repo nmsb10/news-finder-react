@@ -6,13 +6,8 @@ var SaveArticleForm = require('./SaveArticleForm');
 var Results = React.createClass({
 	getInitialState: function(){
 		return{
-			articlesReceived: this.props.articlesFound,
 			saveCode: ''
 		};
-	},
-	//if the component changes (ie if new articles are found)
-	componentDidUpdate: function(){
-		console.log('Results.js: articles received: ', this.state.articlesReceived);
 	},
 	handleChangeSaveCode: function(event){
 		this.setState({saveCode: event.target.value});
