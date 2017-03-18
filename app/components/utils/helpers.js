@@ -22,7 +22,7 @@ var helper = {
 			var d = new Date();
 			queryURL += "&end_date=" + endYear + "0101";
 		}
-		//console.log('queryURL: ', queryURL);
+		console.log('queryURL: ', queryURL);
 		return axios.get(queryURL).then(function(response){
 			var foundArticles = [];
 			if(response.data.response.docs.length < numberOfRecords){
@@ -36,6 +36,7 @@ var helper = {
 					foundArticles.push(response.data.response.docs[j]);
 				}
 			}
+			console.log('found articles array in helpers.js: ',foundArticles);
 			return foundArticles;
 		});
 	},

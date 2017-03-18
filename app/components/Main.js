@@ -20,40 +20,76 @@ const jumbotronStyle = {
 var Main = React.createClass({
 	getInitialState: function(){
 		return {
-			searchTerm: '',
-			numberOfRecords:5,
-			startYear: 2017,
-			endYear:2017,
+			// startYear: 2017,
+			// endYear:2017,
 			searching:false,
 			searchResults: [],
 			savedArticles: []
 		};
 	},
+	// The moment the page renders get the saved articles
+	// componentDidMount: function() {
+	// 	helpers.getHistory().then(function(response) {
+	// 		console.log(response);
+	// 		if (response !== this.state.history) {
+	// 			console.log("History", response.data);
+	// 			this.setState({ history: response.data });
+	// 		}
+	// 	}.bind(this));
+	// },
 	//if this Main component changes (ie if a search is entered)
 	componentDidUpdate: function(){
-		if(!this.state.searching){
-			//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
-			this.setState({searching:true})
-			helpers.runQuery(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear).then(function(data){
-				this.setState({
-					searchResults: data
-				});
-				console.log('search results:', this.state.searchResults);
-				//once the articles are received, post the found articles to Articles
-				//helpers.postArticles(data).then()
-			}.bind(this));
-		}
+		// if(!this.state.searching){
+		// 	//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
+		// 	this.setState({searching:true})
+		// 	helpers.runQuery(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear).then(function(data){
+		// 		this.setState({
+		// 			searchResults: data
+		// 		});
+		// 		console.log('search results:', this.state.searchResults);
+		// 		//once the articles are received, post the found articles to Articles
+		// 		//helpers.postArticles(data).then()
+		// 	}.bind(this));
+		// }
 	},
 	//function so Search child may give the parent the search term
 	setSearchTerms: function(searchterm, records, start, end){
-		this.setState({
-			searchTerm: searchterm,
-			numberOfRecords: records,
-			startYear: start,
-			endYear: end,
-			searching: false
-		});
+		// this.setState({
+		// 	searchTerm: searchterm,
+		// 	numberOfRecords: records,
+		// 	startYear: start,
+		// 	endYear: end,
+		// 	searching: false
+		// });
+		helpers.runQuery(searchterm, records, start, end).then(function(data){
+			console.log('data received in main.js (should be same as found articles array):', data)
+			this.setState({
+				searchResults: data
+			});
+			console.log('search results:', this.state.searchResults);
+		}.bind(this));
+		// this.setState({
+		// 	searching: false
+		// });
+		// if(!this.state.searching){
+		// 	//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
+		// 	this.setState({
+		// 		searching:true
+		// 	});
+		// 	helpers.runQuery(searchterm, records, start, end).then(function(data){
+		// 		console.log('data received in main.js (should be same as found articles array):', data)
+		// 		this.setState({
+		// 			searchResults: data
+		// 		});
+		// 		console.log('search results:', this.state.searchResults);
+		// 		//once the articles are received, post the found articles to Articles
+		// 		//helpers.postArticles(data).then()
+		// 	}.bind(this));
+		// }
 		//console.log('search criteria sent to Main.js:', searchterm, records, start, end);
+	},
+	saveArticle: function(){
+		console.log('main.js: save this article');
 	},
 	render: function(){
 		return (
@@ -71,7 +107,7 @@ var Main = React.createClass({
 				{/* results component */}
 				<div className = 'row'>
 					<div className = 'col-sm-12'>
-						<Results articlesFound = {this.state.searchResults}/>
+						<Results articlesFound = {this.state.searchResults} saveArticle = {this.saveArticle}/>
 					</div>
 				</div>
 				{/* saved articles component */}

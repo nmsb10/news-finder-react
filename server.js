@@ -39,7 +39,8 @@ db.once("open", function() {
 // -------------------------------------------------
 
 //route to send POST requests to be able to display the new articles
-app.post('/api', function(request, response){
+app.post('/save/article/:selected', function(request, response){
+	var selectedArticle = request.params.selected;
 	Article.create({
 		title: request.body.headline.main,
 		date: request.body.pub_date,

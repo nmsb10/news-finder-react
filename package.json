@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
     "dev": "webpack & node server",
-    "build": "webpack"
+    "build": "webpack",
+    "bundlerun": "webpack && node --use_strict server.js"
   },
   "repository": {
     "type": "git",

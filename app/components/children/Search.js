@@ -18,27 +18,15 @@ var Form = React.createClass({
 			searchPlaceholder: ''
 		};
 	},
+	handleInputChange: function(event){
+		var newState = {};
+		console.log(event);
+		newState[event.target.id] = event.target.value;
+		this.setState(newState);
+	},
 	handleChangeSearchTerm: function(event){
 		this.setState({searchTerm: event.target.value});
 	},
-	handleChangeNumRecords: function(event){
-		this.setState({numberOfRecords: event.target.value});
-	},
-	handleChangeStartYear: function(event){
-		this.setState({startYear: event.target.value});
-	},
-	handleChangeEndYear: function(event){
-		this.setState({endYear: event.target.value});
-	},
-	// handleChangeNumRecords: function(event){
-	// 	this.setState({totalSearch.numberOfRecords: event.target.value});
-	// },
-	// handleChangeStartYear: function(event){
-	// 	this.setState({totalSearch.startYear: event.target.value});
-	// },
-	// handleChangeEndYear: function(event){
-	// 	this.setState({totalSearch.endYear: event.target.value});
-	// },
 	handleSubmit: function(event){
 		//first prevent the HTML from trying to submit a form
 		//and refreshing the page if the user clicks the "enter" key
@@ -47,12 +35,6 @@ var Form = React.createClass({
 		if(this.state.searchTerm === ''){
 			this.setState({searchPlaceholder: 'please first enter a topic to search'});
 		}else{
-			// if(this.state.endYear === ''){
-			// 	var d = new Date();
-			// 	var goodDate = d.getFullYear().toString();
-			// 	console.log('this should be the current year:',goodDate);
-			// 	this.setState({endYear: goodDate});
-			// }
 			//props of sendSearchTerms defined from parent Main.js (around line 48)
 			this.props.sendSearchTerms(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear);
 			this.setState({
@@ -63,14 +45,6 @@ var Form = React.createClass({
 				searchPlaceholder: 'enter another topic to search!'
 			});
 		}
-		//after sending the search terms to the Main parent, re-set the totalSearch state of this component
-		// this.setState({totalSearch: {
-		// 	searchTerm: '',
-		// 	numberOfRecords:5,
-		// 	startYear: '',
-		// 	endYear:''
-		// 	}
-		//});
 	},
 	//render the Form panel for search parameters
 	render: function(){
@@ -91,18 +65,18 @@ var Form = React.createClass({
 								id="searchTerm"
 								placeholder = {this.state.searchPlaceholder}
 								value = {this.state.searchTerm}
-								onChange = {this.handleChangeSearchTerm}
+								onChange = {(event) => this.handleInputChange(event)}
 							/>
 						</div>
-
 						{/*capture the number of records that the user wants to retrieve*/}
+						{/* onChange = {this.handleInputChange(event).bind(this)} */}
 						<div className="form-group">
 							<label>Number of Records to Retrieve:</label>
 							<select
 								value = {this.state.numberOfRecords}
 								className="form-control"
-								id="numRecordsSelect"
-								onChange = {this.handleChangeNumRecords}
+								id="numberOfRecords"
+								onChange = {(event) => this.handleInputChange(event)}
 							>
 								<option value='1'>1</option>
 								{/*Setting the option for 5 as default using parameter "selected"*/}
@@ -121,8 +95,7 @@ var Form = React.createClass({
 								className="form-control"
 								id="startYear"
 								value = {this.state.startYear}
-								onChange = {this.handleChangeStartYear}
-							/>
+								onChange = {(event) => this.handleInputChange(event)}							/>
 						</div>
 
 						{/*input for capturing the parameter End Year*/}
@@ -134,7 +107,7 @@ var Form = React.createClass({
 								className="form-control"
 								id="endYear"
 								value = {this.state.endYear}
-								onChange = {this.handleChangeEndYear}
+								onChange = {(event) => this.handleInputChange(event)}
 							/>
 						</div>
 
