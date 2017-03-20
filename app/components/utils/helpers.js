@@ -39,9 +39,16 @@ var helper = {
 			return foundArticles;
 		});
 	},
-	//function to post the freshly found articles to the mongo database
-	postArticles: function(foundArticles){
-		return axios.post('/api', {articles: foundArticles});
+	//function to save an article
+	postArticle: function(article, saveCode){
+		return axios.post('/api', {article: article, code: saveCode });
+	},
+	//function to get saved articles
+	getArticles: function(){
+		return axios.get('/api');
+	},
+	deleteArticle: function(article, deleteCode){
+		return axios.delete('/api', {article: article});
 	}
 };
 

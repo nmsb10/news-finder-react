@@ -38,35 +38,43 @@ db.once("open", function() {
 
 // -------------------------------------------------
 
-//route to send POST requests to be able to display the new articles
-app.post('/save/article/:selected', function(request, response){
-	var selectedArticle = request.params.selected;
-	Article.create({
-		title: request.body.headline.main,
-		date: request.body.pub_date,
-		url: request.body.web_url
-	});
-});
-
-// var ArticleSchema = new Schema({
-// 	title: {
-// 		type: String
-// 	},
-// 	date: {
-// 		type: String
-// 	},
-// 	url: {
-// 		type: String
-// 	}
-// });
-
 // Main "/" Route. This will redirect the user to our rendered React application
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+// This is the route we will send GET requests to retrieve any saved articles
+// We will call this route the moment our page gets rendered
+app.get("/api", function(request, response) {
+	Article.find({}).exec(function(error, doc){
+		if(error){
+			console.log(error);
+		}else{
+			response.send(doc);
+		}
+	});
+});
+
+//route to send POST requests to save an article (received from helpers.js)
+app.post('/api', function(request, response){
+	Article.create({
+		title: request.body.article.headline.main,
+		pubDate: request.body.article.pub_date,
+		url: request.body.article.web_url,
+		code: request.body.code,
+		date: Date.now()
+	}, function(error){
+		if(error){
+			console.log(error);
+		}else{
+			console.log('saved the article!');
+		}
+	});
+});
+
 // -------------------------------------------------
 // Listener
+//to run locally; mongod; mongo; webpack -w; node server.js
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });

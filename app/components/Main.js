@@ -20,24 +20,27 @@ const jumbotronStyle = {
 var Main = React.createClass({
 	getInitialState: function(){
 		return {
-			// startYear: 2017,
-			// endYear:2017,
 			searchResults: [],
 			savedArticles: []
 		};
 	},
-	// The moment the page renders get the saved articles
-	// componentDidMount: function() {
-	// 	helpers.getHistory().then(function(response) {
-	// 		console.log(response);
-	// 		if (response !== this.state.history) {
-	// 			console.log("History", response.data);
-	// 			this.setState({ history: response.data });
-	// 		}
-	// 	}.bind(this));
-	// },
+	//the moment the page renders get the saved articles
+	componentDidMount: function() {
+		helpers.getArticles().then(function(response){
+			console.log('response for componentdidupdate main.js', response);
+			console.log('response.data for componentdidupdate main.js', response.data);
+			console.log('this.state.savedArticles', this.state.savedArticles);
+			if(response !== this.state.savedArticles){
+				this.setState({
+					savedArticles: response.data
+				});
+				console.log('22222this.state.savedArticles', this.state.savedArticles);
+			}
+		}.bind(this));
+	},
 	//if this Main component changes (ie if a search is entered)
 	componentDidUpdate: function(){
+		console.log('main.js did update');
 		// if(!this.state.searching){
 		// 	//VERY IMPORTANT! MUST ADDRESS THIS TO AVOID INFINITE LOOP!
 		// 	this.setState({searching:true})
@@ -59,8 +62,16 @@ var Main = React.createClass({
 			});
 		}.bind(this));
 	},
-	saveArticle: function(one, two){
-		console.log('main.js: save this article', one, two);
+	saveArticle: function(article, code){
+		var selected = this.state.searchResults[article];
+		//now remove the saved article from searchResults array
+		this.state.searchResults.splice(article,1);
+		helpers.postArticle(selected, code);
+	},
+	deleteArticle: function(article, code){
+		var selected = this.state.savedArticles[article];
+		console.log('selected article:',selected);
+		//helpers.deleteArticle(selected, code);
 		//to delete article, usercode|| 55oo
 	},
 	render: function(){
@@ -85,7 +96,7 @@ var Main = React.createClass({
 				{/* saved articles component */}
 				<div className = 'row'>
 					<div className = 'col-sm-12'>
-						<Saved savedArticles = {this.state.savedArticles} />
+						<Saved savedArticles = {this.state.savedArticles} deleteArticle = {this.deleteArticle}/>
 					</div>
 				</div>
 			</div>

@@ -5,11 +5,17 @@ var ArticleSchema = new Schema({
 	title: {
 		type: String
 	},
-	date: {
+	pubDate: {
 		type: String
 	},
 	url: {
 		type: String
+	},
+	code:{
+		type: String
+	},
+	date:{
+		type: Date
 	}
 });
 

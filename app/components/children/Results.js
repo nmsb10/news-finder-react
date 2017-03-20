@@ -5,8 +5,6 @@ var SaveArticleForm = require('./SaveArticleForm');
 // Creating the Results component
 var Results = React.createClass({
 	handleSaveArticle: function(article, code){
-		console.log('hurray');
-		console.log('save this article', article, code);
 		this.props.saveArticle(article, code);
 	},
 	render: function(){
