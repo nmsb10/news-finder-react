@@ -4,36 +4,10 @@ var SaveArticleForm = require('./SaveArticleForm');
 
 // Creating the Results component
 var Results = React.createClass({
-	getInitialState: function(){
-		return{
-			saveCode: ''
-		};
-	},
-	handleChangeSaveCode: function(event){
-		this.setState({saveCode: event.target.value});
-	},
-	handleSubmitSave: function(event){
-		event.preventDefault();
-		console.log('save this article');
-		if(this.state.searchTerm === ''){
-			this.setState({searchPlaceholder: 'please first enter a topic to search'});
-		}else{
-			this.props.sendSearchTerms(this.state.searchTerm, this.state.numberOfRecords, this.state.startYear, this.state.endYear);
-			this.setState({
-				searchTerm: '',
-				numberOfRecords: 5,
-				startYear: '',
-				endYear: '',
-				searchPlaceholder: 'enter another topic to search!'
-			});
-		}
-	},
-	handleSaveArticle: function(event){
-		event.preventDefault();
-		console.log('save this article',event.target);
-		console.log('save this article',event.target.id);
-		console.log('save this article',event.target.articleToSave);
-		this.props.saveArticle();
+	handleSaveArticle: function(article, code){
+		console.log('hurray');
+		console.log('save this article', article, code);
+		this.props.saveArticle(article, code);
 	},
 	render: function(){
 		return (
@@ -57,33 +31,16 @@ var Results = React.createClass({
 									<a href={search.web_url}>{search.web_url}</a>
 									<br/>
 									<br/>
-									<SaveArticleForm id={i}/>
-									{/* run this component's handleSubmit function when the form is submitted per the submit button*/}
-									{/*<form role="form" className = 'clearfix' onSubmit = {this.handleSaveArticle.bind(this)}>*/}
+									<SaveArticleForm id={i} saveIt = {this.handleSaveArticle}/>
 									{/*
-									<form role="form" className = 'clearfix'>
-										<div className="form-group pull-left">
-											<label>save password:</label>
-											<input
-												type="text" 
-												className="form-control" 
-												value = {this.state.saveCode.bind(this)} 
-												onChange = {this.handleChangeSaveCode.bind(this)}
-											/>
-											<input
-												type = 'hidden'
-												id={i}
-												name = 'articleToSave'
-											/>
-											<label>enter your save password above</label>
-										</div>
-										<button type="submit" className="btn btn-default pull-right">Save Article</button>
-									</form>
+									<div key={i}> <button type = "button" onClick={this.newStuff.bind(this, i)} className="btn btn-default pull-right">HELLO!</button> </div>
+									<SaveArticleForm id={i} saveIt = {(event) => this.handleSaveArticle(event)}/>
 									*/}
 								</div>
 							</div>
 						);
-					})}
+					//VERY IMPORTANT: INCLUDE `THIS` HERE SO YOU CAN PASS FUNCTIONS FROM THIS RESULTS.JS COMPONENT TO ELEMENTS WITHIN THIS MAPPING OF THE articlesFound ARRAY
+					},this)}
 				</div>
 			</div>
 		);

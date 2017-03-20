@@ -59,8 +59,9 @@ var Main = React.createClass({
 			});
 		}.bind(this));
 	},
-	saveArticle: function(){
-		console.log('main.js: save this article');
+	saveArticle: function(one, two){
+		console.log('main.js: save this article', one, two);
+		//to delete article, usercode|| 55oo
 	},
 	render: function(){
 		return (
