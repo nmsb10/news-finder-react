@@ -82,6 +82,7 @@ var Main = React.createClass({
 		var selected = this.state.savedArticles[article];
 		console.log('selected article id:',article);
 		helpers.deleteArticle(article, code);
+		this.getSavedArticles();
 		//to delete article, usercode|| 55oo
 	},
 	render: function(){
