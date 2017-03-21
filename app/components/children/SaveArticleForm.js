@@ -20,6 +20,9 @@ var Form = React.createClass({
 			});
 		}else{
 			this.props.saveIt(event.target.articleToSave.dataset.articleid, this.state.saveCode);
+			this.setState({
+				saveCode: ''
+			});
 		}
 	},
 	render: function(){

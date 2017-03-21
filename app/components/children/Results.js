@@ -18,7 +18,7 @@ var Results = React.createClass({
 				<div className="panel-body" id="wellSection">
 					{this.props.articlesFound.map(function(search, i) {
 						return (
-							<div key = {i} className = 'panel panel-success'>
+							<div key = {i} className = 'panel panel-info'>
 								<div className = 'panel-heading'>
 									<h3>{search.headline.main}</h3>
 								</div>

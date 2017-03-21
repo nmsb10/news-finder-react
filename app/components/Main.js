@@ -26,17 +26,7 @@ var Main = React.createClass({
 	},
 	//the moment the page renders get the saved articles
 	componentDidMount: function() {
-		helpers.getArticles().then(function(response){
-			//console.log('response for componentdidupdate main.js', response);
-			//console.log('response.data for componentdidupdate main.js', response.data);
-			//console.log('this.state.savedArticles', this.state.savedArticles);
-			if(response !== this.state.savedArticles){
-				this.setState({
-					savedArticles: response.data
-				});
-				//console.log('22222this.state.savedArticles', this.state.savedArticles);
-			}
-		}.bind(this));
+		this.getSavedArticles();
 	},
 	//if this Main component changes (ie if a search is entered)
 	componentDidUpdate: function(){
@@ -54,6 +44,15 @@ var Main = React.createClass({
 		// 	}.bind(this));
 		// }
 	},
+	getSavedArticles: function(){
+		helpers.getArticles().then(function(response){
+			if(response !== this.state.savedArticles){
+				this.setState({
+					savedArticles: response.data
+				});
+			}
+		}.bind(this));
+	},
 	//function so Search child may give the parent the search term
 	setSearchTerms: function(searchterm, records, start, end){
 		helpers.runQuery(searchterm, records, start, end).then(function(data){
@@ -65,8 +64,19 @@ var Main = React.createClass({
 	saveArticle: function(article, code){
 		var selected = this.state.searchResults[article];
 		//now remove the saved article from searchResults array
-		this.state.searchResults.splice(article,1);
+		//nb: SHOULD NOT MUTATE STATE IE this.state.searchResults.splice(article,1);
+		//instead, use the filter array method
+		// var remove = parseInt(article);
+		// var remainingSaved = this.state.searchResults.filter(function(itm, i){
+		// 		return i !== remove;
+		// });
+		this.setState({
+			searchResults: this.state.searchResults.filter(function(itm, i){
+				return i !== parseInt(article);
+			})
+		});
 		helpers.postArticle(selected, code);
+		this.getSavedArticles();
 	},
 	deleteArticle: function(article, code){
 		var selected = this.state.savedArticles[article];
