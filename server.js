@@ -73,13 +73,13 @@ app.post('/api', function(request, response){
 });
 
 //route to send DELETE requests to delete an article (received from helpers.js)
-app.delete('/api', function(request, response){
-	Article.remove({_id:request.body.id}, function(error){
+//app.delete('/api', function(request, response){
+app.post('/delete/article', function(request, response){
+	Article.remove({_id:request.body.article}, function(error){
 		if(error){
 			console.log(error);
 		}
 	});
-
 });
 
 // -------------------------------------------------

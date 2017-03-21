@@ -26,7 +26,7 @@ var Results = React.createClass({
 									{search.byline !== null && <h5>{search.byline.original}</h5>}
 									<h5>{search.lead_paragraph}</h5>{/*or snippet?*/}
 									<h5>{search.pub_date} | article id: {search._id}</h5>
-									<a href={search.web_url}>{search.web_url}</a>
+									<a href={search.web_url} target='_blank'>{search.web_url}</a>
 									<br/>
 									<br/>
 									<SaveArticleForm id={i} saveIt = {this.handleSaveArticle}/>

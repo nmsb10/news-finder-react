@@ -27,14 +27,14 @@ var Main = React.createClass({
 	//the moment the page renders get the saved articles
 	componentDidMount: function() {
 		helpers.getArticles().then(function(response){
-			console.log('response for componentdidupdate main.js', response);
-			console.log('response.data for componentdidupdate main.js', response.data);
-			console.log('this.state.savedArticles', this.state.savedArticles);
+			//console.log('response for componentdidupdate main.js', response);
+			//console.log('response.data for componentdidupdate main.js', response.data);
+			//console.log('this.state.savedArticles', this.state.savedArticles);
 			if(response !== this.state.savedArticles){
 				this.setState({
 					savedArticles: response.data
 				});
-				console.log('22222this.state.savedArticles', this.state.savedArticles);
+				//console.log('22222this.state.savedArticles', this.state.savedArticles);
 			}
 		}.bind(this));
 	},
@@ -70,8 +70,8 @@ var Main = React.createClass({
 	},
 	deleteArticle: function(article, code){
 		var selected = this.state.savedArticles[article];
-		console.log('selected article:',selected);
-		//helpers.deleteArticle(selected, code);
+		console.log('selected article id:',article);
+		helpers.deleteArticle(article, code);
 		//to delete article, usercode|| 55oo
 	},
 	render: function(){

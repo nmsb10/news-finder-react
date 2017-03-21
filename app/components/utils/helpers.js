@@ -48,7 +48,8 @@ var helper = {
 		return axios.get('/api');
 	},
 	deleteArticle: function(article, deleteCode){
-		return axios.delete('/api', {article: article});
+		//return axios.delete('/api', {article: article});
+		return axios.post('/delete/article', {article: article});
 	}
 };
 

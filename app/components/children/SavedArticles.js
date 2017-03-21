@@ -25,10 +25,10 @@ var Saved = React.createClass({
 								<div className = 'panel-body'>
 									<h5>article published on: {found.pubDate}</h5>
 									<h5>this specific article saved on: {found.date}</h5>
-									<a href={found.url}>{found.url}</a>
+									<a href={found.url} target='_blank'>{found.url}</a>
 									<br/>
 									<br/>
-									<DeleteArticleForm id={i} deleteIt = {this.handleDeleteArticle}/>
+									<DeleteArticleForm id={found._id} deleteIt = {this.handleDeleteArticle}/>
 								</div>
 							</div>
 						);
